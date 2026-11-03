@@ -240,3 +240,65 @@ if (age >= 18 && hasID) {
     System.out.println("Entry allowed");
 }
 Short-circuit: In &&, if the first condition is false, the second is not evaluated. In ||, if the first condition is true, the second is not evaluated.
+
+
+**Day4**
+**1. for Loop**
+The for loop is used to execute a block of code repeatedly when the number of iterations is known.
+
+Syntax:
+for (initialization; condition; update) {
+    // code
+}
+Example:
+for (int i = 1; i <= 5; i++) {
+    System.out.println(i);
+}
+
+**2. while Loop**
+The while loop executes a block of code as long as the condition is true. It is useful when the number of iterations is unknown.
+int i = 1;
+
+while (i <= 5) {
+    System.out.println(i);
+    i++;
+}
+Note: The condition is checked before execution, so it may execute zero times.
+
+**3. do-while Loop**
+The do-while loop executes the code at least once because the condition is checked after execution.
+int i = 1;
+do {
+    System.out.println(i);
+    i++;
+} while (i <= 5);
+Note: A semicolon ; is required after the while condition.
+
+**4. Nested Loops**
+A loop inside another loop is called a nested loop. It is commonly used for patterns, matrices, and tables.
+for (int i = 1; i <= 3; i++) {
+    for (int j = 1; j <= 3; j++) {
+        System.out.print("* ");
+    }
+    System.out.println();
+}
+
+**5. break Statement**
+The break statement terminates the loop immediately and transfers control to the statement after the loop.
+for (int i = 1; i <= 5; i++) {
+    if (i == 3) {
+        break;
+    }
+    System.out.println(i);
+}
+Output: 1 2
+
+**6. continue Statement**
+The continue statement skips the current iteration and moves to the next iteration of the loop.
+for (int i = 1; i <= 5; i++) {
+    if (i == 3) {
+        continue;
+    }
+    System.out.println(i);
+}
+Output: 1 2 4 5
