@@ -164,3 +164,79 @@ Used to perform operations directly on the binary bits of integer values.
 | << | Left Shift |
 | >> | Signed Right Shift |
 | >>> | Unsigned Right Shift |
+
+
+**Day-3**
+**1. if Statement**
+The if statement executes a block of code only when the given condition is true.
+int age = 20;
+if (age >= 18) {
+    System.out.println("Eligible to vote");
+}
+
+**2. if-else Statement**
+The if-else statement executes one block if the condition is true and another block if it is false.
+int age = 16;
+if (age >= 18) {
+    System.out.println("Adult");
+} else {
+    System.out.println("Minor");
+}
+
+**3. Nested Conditions**
+An if statement inside another if statement is called a nested if. It is used to check multiple dependent conditions.
+int age = 20;
+boolean hasLicense = true;
+
+if (age >= 18) {
+    if (hasLicense) {
+        System.out.println("Can drive");
+    }
+}
+
+**4. switch Statement**
+The switch statement is used to execute different blocks of code based on the value of a variable or expression.
+int day = 2;
+
+switch (day) {
+    case 1:
+        System.out.println("Monday");
+        break;
+    case 2:
+        System.out.println("Tuesday");
+        break;
+    default:
+        System.out.println("Invalid day");
+}
+Important: break prevents execution from continuing into the next case. default executes when no case matches.
+
+**5. Switch Expressions**
+Switch expressions return a value. They were introduced as a standard feature in Java 14.
+int day = 2;
+
+String result = switch (day) {
+    case 1 -> "Monday";
+    case 2 -> "Tuesday";
+    case 3 -> "Wednesday";
+    default -> "Invalid day";
+};
+System.out.println(result);
+Difference: Traditional switch uses case: and often break; switch expressions use -> and can return values.
+
+**6. Logical Conditions**
+Logical operators are used to combine or modify conditions. The result is either true or false.
+
+| Operator | Meaning | Example |
+|---|---|---|
+| && | AND – Both conditions true | a > 5 && b > 5 |
+| || | OR – At least one true | a > 5 || b > 5 |
+| ! | NOT – Reverses result | !(a > 5) |
+
+Example:
+int age = 22;
+boolean hasID = true;
+
+if (age >= 18 && hasID) {
+    System.out.println("Entry allowed");
+}
+Short-circuit: In &&, if the first condition is false, the second is not evaluated. In ||, if the first condition is true, the second is not evaluated.
