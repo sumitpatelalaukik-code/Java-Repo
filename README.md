@@ -1,3 +1,5 @@
+**Day1**
+
 **1. What is Java?**
 Java is a high-level, object-oriented, platform-independent programming language developed by Sun Microsystems in 1995. It is used to develop web, desktop, mobile, and enterprise applications.
 
@@ -30,6 +32,7 @@ Example: Hello.java → Hello.class
 
 
 **Day2**
+
 **1. Variables**
 A variable is a named memory location used to store data in a program. Its value can change during program execution.
 Syntax:
