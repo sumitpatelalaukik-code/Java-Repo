@@ -167,7 +167,9 @@ Used to perform operations directly on the binary bits of integer values.
 
 
 **Day-3**
+
 **1. if Statement**
+
 The if statement executes a block of code only when the given condition is true.
 int age = 20;
 if (age >= 18) {
@@ -175,6 +177,7 @@ if (age >= 18) {
 }
 
 **2. if-else Statement**
+
 The if-else statement executes one block if the condition is true and another block if it is false.
 int age = 16;
 if (age >= 18) {
@@ -184,6 +187,7 @@ if (age >= 18) {
 }
 
 **3. Nested Conditions**
+
 An if statement inside another if statement is called a nested if. It is used to check multiple dependent conditions.
 int age = 20;
 boolean hasLicense = true;
@@ -195,6 +199,7 @@ if (age >= 18) {
 }
 
 **4. switch Statement**
+
 The switch statement is used to execute different blocks of code based on the value of a variable or expression.
 int day = 2;
 
@@ -211,6 +216,7 @@ switch (day) {
 Important: break prevents execution from continuing into the next case. default executes when no case matches.
 
 **5. Switch Expressions**
+
 Switch expressions return a value. They were introduced as a standard feature in Java 14.
 int day = 2;
 
@@ -224,6 +230,7 @@ System.out.println(result);
 Difference: Traditional switch uses case: and often break; switch expressions use -> and can return values.
 
 **6. Logical Conditions**
+
 Logical operators are used to combine or modify conditions. The result is either true or false.
 
 | Operator | Meaning | Example |
@@ -244,6 +251,7 @@ Short-circuit: In &&, if the first condition is false, the second is not evaluat
 
 **Day4**
 **1. for Loop**
+
 The for loop is used to execute a block of code repeatedly when the number of iterations is known.
 
 Syntax:
@@ -256,7 +264,9 @@ for (int i = 1; i <= 5; i++) {
 }
 
 **2. while Loop**
+
 The while loop executes a block of code as long as the condition is true. It is useful when the number of iterations is unknown.
+
 int i = 1;
 
 while (i <= 5) {
@@ -266,7 +276,9 @@ while (i <= 5) {
 Note: The condition is checked before execution, so it may execute zero times.
 
 **3. do-while Loop**
+
 The do-while loop executes the code at least once because the condition is checked after execution.
+
 int i = 1;
 do {
     System.out.println(i);
@@ -275,7 +287,9 @@ do {
 Note: A semicolon ; is required after the while condition.
 
 **4. Nested Loops**
+
 A loop inside another loop is called a nested loop. It is commonly used for patterns, matrices, and tables.
+
 for (int i = 1; i <= 3; i++) {
     for (int j = 1; j <= 3; j++) {
         System.out.print("* ");
@@ -284,7 +298,9 @@ for (int i = 1; i <= 3; i++) {
 }
 
 **5. break Statement**
+
 The break statement terminates the loop immediately and transfers control to the statement after the loop.
+
 for (int i = 1; i <= 5; i++) {
     if (i == 3) {
         break;
@@ -294,7 +310,9 @@ for (int i = 1; i <= 5; i++) {
 Output: 1 2
 
 **6. continue Statement**
+
 The continue statement skips the current iteration and moves to the next iteration of the loop.
+
 for (int i = 1; i <= 5; i++) {
     if (i == 3) {
         continue;
@@ -302,3 +320,108 @@ for (int i = 1; i <= 5; i++) {
     System.out.println(i);
 }
 Output: 1 2 4 5
+
+
+**Day5**
+
+**1. Methods**
+A method is a block of code that performs a specific task. It helps in code reusability and reduces repetition.
+
+Syntax:
+returnType methodName() {
+    // code
+}
+Example:
+void greet() {
+    System.out.println("Hello Java");
+}
+
+**2. Parameters**
+
+Parameters are variables declared in a method to receive values from the caller. They allow us to pass data to a method.
+
+void add(int a, int b) {
+    System.out.println(a + b);
+}
+Here, a and b are parameters.
+
+**3. Return Values**
+
+A return value is the result sent back by a method using the return keyword. The return type specifies the type of value returned.
+
+int add(int a, int b) {
+    return a + b;
+}
+int result = add(10, 20);
+void means the method does not return a value.
+
+**4. Method Overloading**
+
+Method overloading means defining multiple methods with the same name but different parameter lists. It is an example of compile-time polymorphism.
+
+int add(int a, int b) {
+    return a + b;
+}
+int add(int a, int b, int c) {
+    return a + b + c;
+}
+double add(double a, double b) {
+    return a + b;
+}
+Note: Changing only the return type does not create valid method overloading.
+
+**5. Local / Global Variables**
+
+Variables are classified based on where they are declared.
+- Local Variable: Declared inside a method or block. It must be initialized before use and has block-level scope.
+- Global Variable: Java does not have true global variables. Instance and static variables are often informally called global variables because they are declared at class level.
+  
+class Demo {
+    int x = 10;          // Instance variable
+    static int y = 20;   // Static variable
+    void show() {
+        int z = 30;      // Local variable
+    }
+}
+
+**6. Arrays**
+
+An array is a data structure that stores multiple values of the same data type in a fixed-size collection. Array indexing starts from 0.
+
+int[] numbers = {10, 20, 30};
+System.out.println(numbers[0]); // 10
+
+**7. 1D Arrays**
+
+A one-dimensional array stores elements in a single sequence.
+
+Declaration:
+int[] arr = new int[5];
+Initialization:
+int[] arr = {10, 20, 30, 40, 50};
+for (int i = 0; i < arr.length; i++) {
+    System.out.println(arr[i]);
+}
+arr.length returns the size of the array.
+
+**8. 2D Arrays**
+
+A two-dimensional array stores data in rows and columns. It is commonly used to represent matrices.
+
+Declaration:
+int[][] arr = new int[2][3];
+Initialization:
+int[][] arr = {
+    {1, 2, 3},
+    {4, 5, 6}
+};
+for (int i = 0; i < arr.length; i++) {
+    for (int j = 0; j < arr[i].length; j++) {
+        System.out.print(arr[i][j] + " ");
+    }
+    System.out.println();
+}
+
+Output:
+1 2 3
+4 5 6
