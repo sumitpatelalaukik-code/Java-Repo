@@ -428,3 +428,196 @@ for (int i = 0; i < arr.length; i++) {
 Output:
 1 2 3
 4 5 6
+<<<<<<< HEAD
+=======
+
+**Day-6**
+
+**1. Class**
+
+A class is a blueprint or template used to create objects. It defines the properties (fields) and behavior (methods) of objects.
+class Student {
+    String name;
+    int age;
+}
+
+
+**2. Object**
+
+An object is an instance of a class. It has state (data) and behavior (methods).
+Student s1 = new Student();
+s1.name = "Sumit";
+s1.age = 22;
+
+
+Here, s1 is a reference variable pointing to a Student object.
+
+
+**3. Fields**
+
+Fields are variables declared inside a class but outside methods and constructors. They represent the properties of an object.
+class Student {
+    String name;  // Field
+    int age;      // Field
+}
+
+
+Fields receive default values if not explicitly initialized.
+
+
+**4. Methods**
+
+Methods are blocks of code defined inside a class that perform specific operations. They represent the behavior of an object.
+class Student {
+    void display() {
+        System.out.println("Hello Student");
+    }
+}
+
+
+**5. Constructors**
+
+A constructor is a special member used to initialize an object. It has the same name as the class and does not have a return type.
+
+Types:
+- Default constructor: Provided by the compiler if no constructor is declared.
+- No-argument constructor: A constructor with no parameters.
+- Parameterized constructor: Accepts parameters to initialize values.
+class Student {
+    String name;
+
+    Student(String name) {
+        this.name = name;
+    }
+}
+
+
+**6. this Keyword**
+
+The this keyword refers to the current object. It is commonly used to differentiate instance variables from local variables or parameters.
+class Student {
+    String name;
+
+    Student(String name) {
+        this.name = name;
+    }
+}
+
+
+Here, this.name refers to the field, while name refers to the constructor parameter.
+
+
+**7. Instance vs Static Members**
+
+Instance Members	Static Members
+Belong to an object	Belong to the class
+Each object has its own copy of fields	One shared copy
+Accessed using object reference	Accessed using class name
+Declared without static	Declared using static
+
+Example:
+class Student {
+    String name;             // Instance variable
+    static String college = "RGPV"; // Static variable
+
+    void display() {
+        System.out.println(name);
+    }
+
+    static void showCollege() {
+        System.out.println(college);
+    }
+}
+
+Usage:
+Student s1 = new Student();
+s1.name = "Sumit";
+
+Student.showCollege();
+
+Important: Static methods cannot directly access instance members because they do not belong to a particular object
+
+
+**Day7**
+
+**1. Access Modifiers**
+
+Access modifiers define the visibility or accessibility of classes, variables, methods, and constructors. Java has four access levels: public, private, protected, and default.
+
+**2. private**
+
+The private modifier allows access only within the same class. It is commonly used to protect data.
+private int age;
+
+
+**3. public**
+
+The public modifier allows access from anywhere, provided the class itself is accessible.
+public void display() {
+    System.out.println("Hello");
+}
+
+
+**4. protected**
+
+The protected modifier allows access within the same package and also in subclasses outside the package.
+protected int salary;
+
+
+**5. default**
+
+When no access modifier is specified, it is called default or package-private access. It allows access only within the same package.
+int age;
+
+Access Modifier Table
+Modifier	Same Class	Same Package	Subclass (Other Package)	Other Package
+private	Yes	No	No	No
+default	Yes	Yes	No	No
+protected	Yes	Yes	Yes	No
+public	Yes	Yes	Yes	Yes
+
+**6. Getters**
+
+A getter is a method used to retrieve the value of a private variable. It usually starts with get.
+public int getAge() {
+    return age;
+}
+
+
+**7. Setters**
+
+A setter is a method used to modify the value of a private variable. It usually starts with set.
+public void setAge(int age) {
+    this.age = age;
+}
+
+
+**8. Data Hiding**
+
+Data hiding is the process of restricting direct access to class data by declaring fields as private and providing controlled access through getters and setters.
+
+Example:
+class Student {
+    private int age;
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        if (age > 0) {
+            this.age = age;
+        }
+    }
+}
+
+Usage:
+Student s = new Student();
+s.setAge(22);
+System.out.println(s.getAge());
+
+Benefits:
+- Protects data from unauthorized access.
+- Provides controlled modification.
+- Improves security and maintainability.
+
