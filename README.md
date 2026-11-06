@@ -619,3 +619,217 @@ Benefits:
 - Provides controlled modification.
 - Improves security and maintainability.
 
+
+**Day8**
+
+**1. Parent Class**
+
+A parent class (superclass) is a class whose properties and methods are inherited by another class.
+class Animal {
+    void eat() {
+        System.out.println("Animal eats");
+    }
+}
+
+
+**2. Child Class**
+
+A child class (subclass) is a class that inherits properties and methods from a parent class.
+class Dog extends Animal {
+    void bark() {
+        System.out.println("Dog barks");
+    }
+}
+
+
+**3. extends Keyword**
+
+The extends keyword is used to inherit a class. It allows code reusability by sharing existing properties and methods.
+class Dog extends Animal {
+}
+
+
+**4. Types of Inheritance**
+
+Inheritance is classified into different types:
+
+- Single: One child inherits one parent.
+- Multilevel: A class inherits another child class, forming a chain.
+- Hierarchical: Multiple child classes inherit one parent.
+- Multiple: One child inherits multiple parents. Java does not support multiple inheritance through classes, but supports it through interfaces.
+- Hybrid: Combination of multiple inheritance types, achievable using interfaces.
+
+
+**5. Method Overriding**
+
+Method overriding occurs when a child class provides its own implementation of a method already defined in the parent class.
+
+It is an example of runtime polymorphism.
+class Animal {
+    void sound() {
+        System.out.println("Animal sound");
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    void sound() {
+        System.out.println("Bark");
+    }
+}
+
+
+**6. super Keyword**
+
+The super keyword refers to the immediate parent class object. It is used to access parent class members and constructors.
+
+Uses:
+- Access parent class variables.
+- Call parent class methods.
+- Call parent class constructor.
+class Animal {
+    String name = "Animal";
+}
+
+class Dog extends Animal {
+    String name = "Dog";
+
+    void display() {
+        System.out.println(super.name);
+        System.out.println(name);
+    }
+}
+
+
+Output:
+Animal
+Dog
+
+
+**7. Constructor Chaining**
+
+Constructor chaining is the process of calling one constructor from another constructor.
+
+It is done using:
+- this() → Calls another constructor of the same class.
+- super() → Calls the parent class constructor.
+class Animal {
+    Animal() {
+        System.out.println("Animal constructor");
+    }
+}
+
+class Dog extends Animal {
+    Dog() {
+        super();
+        System.out.println("Dog constructor");
+    }
+}
+
+Output:
+Animal constructor
+Dog constructor
+
+Important: this() or super() must be the first statement in a constructor. If omitted, Java inserts super() automatically when applicable.
+
+
+**Day9**
+
+**1. Polymorphism**
+
+Polymorphism means "one name, many forms." It allows the same method or object to behave differently in different situations.
+
+Java supports two types:
+- Compile-time polymorphism
+- Runtime polymorphism
+
+
+**2. Compile-time Polymorphism**
+
+Compile-time polymorphism is achieved through method overloading. The compiler decides which method to call based on the arguments.
+
+Also called static polymorphism or early binding.
+
+
+**3. Runtime Polymorphism**
+Runtime polymorphism is achieved through method overriding. The JVM decides which method implementation to execute at runtime based on the actual object.
+
+Also called dynamic polymorphism or late binding.
+
+
+**4. Method Overloading**
+
+Method overloading means defining multiple methods with the same name but different parameter lists.
+class Calculator {
+    int add(int a, int b) {
+        return a + b;
+    }
+
+    int add(int a, int b, int c) {
+        return a + b + c;
+    }
+}
+
+
+**5. Method Overriding**
+
+Method overriding occurs when a child class provides its own implementation of a method already defined in the parent class.
+class Animal {
+    void sound() {
+        System.out.println("Animal sound");
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    void sound() {
+        System.out.println("Bark");
+    }
+}
+
+
+**6. Upcasting**
+
+Upcasting means converting a child class reference into a parent class reference. It happens automatically and is commonly used in runtime polymorphism.
+Animal a = new Dog();
+
+Here, Animal is the reference type, but the actual object is Dog.
+
+
+**7. Downcasting**
+
+Downcasting means converting a parent class reference back into a child class reference. It requires explicit casting.
+Animal a = new Dog();
+Dog d = (Dog) a;
+d.sound();
+
+Note: Incorrect downcasting may cause ClassCastException. Use instanceof to check before casting.
+
+
+**8. Dynamic Method Dispatch**
+
+Dynamic method dispatch is the process by which a call to an overridden method is resolved at runtime based on the actual object.
+class Animal {
+    void sound() {
+        System.out.println("Animal sound");
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    void sound() {
+        System.out.println("Bark");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Animal a = new Dog(); 
+        a.sound();
+    }
+}
+
+Output:
+Bark
+
+Here, the reference is Animal, but the object is Dog. Therefore, the overridden Dog method executes.
