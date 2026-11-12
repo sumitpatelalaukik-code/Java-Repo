@@ -833,3 +833,205 @@ Output:
 Bark
 
 Here, the reference is Animal, but the object is Dog. Therefore, the overridden Dog method executes.
+
+
+**Day10**
+
+**1. Abstract Classes**
+
+An abstract class is a class declared using the abstract keyword. It cannot be instantiated directly and can contain both abstract and normal methods.
+abstract class Animal {
+    abstract void sound();
+
+    void eat() {
+        System.out.println("Eating...");
+    }
+}
+
+
+**2. Abstract Methods**
+
+An abstract method is a method declared without a body. Its implementation must be provided by a concrete child class.
+abstract class Animal {
+    abstract void sound();
+}
+
+class Dog extends Animal {
+    void sound() {
+        System.out.println("Bark");
+    }
+}
+
+Note: If a child class does not implement all inherited abstract methods, it must also be declared abstract.
+
+
+**3. Interfaces**
+
+An interface is a blueprint that defines a contract for classes. It is declared using the interface keyword and implemented using implements.
+interface Animal {
+    void sound();
+}
+
+class Dog implements Animal {
+    public void sound() {
+        System.out.println("Bark");
+    }
+}
+
+Note: Interface abstract methods are implicitly public abstract.
+
+
+**4. Multiple Interfaces**
+
+Java allows a class to implement multiple interfaces. This provides multiple inheritance of type and behavior contracts.
+interface A {
+    void show();
+}
+
+interface B {
+    void display();
+}
+
+class Demo implements A, B {
+    public void show() {
+        System.out.println("Show");
+    }
+
+    public void display() {
+        System.out.println("Display");
+    }
+}
+
+
+**5. Default Methods**
+
+Default methods are methods inside interfaces that have a method body and use the default keyword. They allow interfaces to provide common implementations.
+interface Vehicle {
+    default void start() {
+        System.out.println("Vehicle started");
+    }
+}
+
+A class implementing the interface can use or override the default method.
+Default methods are methods inside interfaces that have a method body and use the default keyword. They allow interfaces to provide common implementations.
+interface Vehicle {
+    default void start() {
+        System.out.println("Vehicle started");
+    }
+}
+
+A class implementing the interface can use or override the default method.
+
+
+**6. Static Interface Methods**
+
+Static methods inside interfaces belong to the interface itself. They are called using the interface name and cannot be overridden as instance methods.
+interface Calculator {
+    static void add() {
+        System.out.println(10 + 20);
+    }
+}
+
+class Main {
+    public static void main(String[] args) {
+        Calculator.add();
+    }
+}
+
+
+**7. Interface vs Abstract Class**
+
+Abstract Class	Interface
+Declared using abstract class	Declared using interface
+Extended using extends	Implemented using implements
+Can have constructors	Cannot have constructors
+Can have instance variables	Fields are implicitly public static final
+Can have abstract and concrete methods	Can have abstract, default, static and private methods
+A class can extend only one class	A class can implement multiple interfaces
+Supports shared state and behavior	Primarily defines contracts
+
+
+**Day11**
+
+**1. String**
+
+A String is a sequence of characters used to store text in Java. String is a class in Java, not a primitive data type.
+String name = "Sumit";
+String city = new String("Indore");
+
+**2. String Pool**
+
+String Pool is a special memory area inside the heap where Java stores string literals to reuse existing String objects and save memory.
+String s1 = "Java";
+String s2 = "Java";
+
+System.out.println(s1 == s2); // true
+
+Both references point to the same pooled String object.
+
+**3. String Immutability**
+
+String is immutable in Java, which means its value cannot be changed after creation. Any modification creates a new String object.
+String s = "Hello";
+s.concat(" Java");
+
+System.out.println(s); // Hello
+
+To store the modified value:
+s = s.concat(" Java");
+System.out.println(s); // Hello Java
+
+Benefits:
+- Security
+- Thread safety
+- String pool optimization
+- Reliable data sharing
+
+**4. StringBuilder**
+
+StringBuilder is a mutable class used to create and modify strings without creating a new object for every modification.
+
+It is not synchronized, so it is generally faster in single-threaded situations.
+StringBuilder sb = new StringBuilder("Hello");
+
+sb.append(" Java");
+sb.reverse();
+
+System.out.println(sb);
+
+
+**5. StringBuffer**
+
+StringBuffer is a mutable class used to modify strings. Its methods are synchronized, making it suitable for shared use between multiple threads.
+StringBuffer sb = new StringBuffer("Hello");
+
+sb.append(" Java");
+System.out.println(sb);
+
+String vs StringBuilder vs StringBuffer
+String	StringBuilder	StringBuffer
+Immutable	Mutable	Mutable
+Cannot modify original object	Can modify original object	Can modify original object
+Thread-safe due to immutability	Not synchronized	Synchronized
+Less suitable for repeated modifications	Generally faster	Generally slower than StringBuilder
+
+**6. Common String Methods**
+
+Method	Description	Example
+length()	Returns string length	s.length()
+charAt()	Returns character at index	s.charAt(0)
+toUpperCase()	Converts to uppercase	s.toUpperCase()
+toLowerCase()	Converts to lowercase	s.toLowerCase()
+equals()	Compares string content	s.equals("Java")
+equalsIgnoreCase()	Compares ignoring case	s.equalsIgnoreCase("java")
+contains()	Checks substring	s.contains("av")
+substring()	Extracts part of string	s.substring(1, 3)
+indexOf()	Returns first matching index	s.indexOf("a")
+lastIndexOf()	Returns last matching index	s.lastIndexOf("a")
+trim()	Removes leading/trailing spaces	s.trim()
+replace()	Replaces characters or text	s.replace("a", "b")
+startsWith()	Checks starting text	s.startsWith("Ja")
+endsWith()	Checks ending text	s.endsWith("va")
+isEmpty()	Checks if length is zero	s.isEmpty()
+split()	Splits string into an array	s.split(" ")
+
