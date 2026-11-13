@@ -1015,23 +1015,121 @@ Cannot modify original object	Can modify original object	Can modify original obj
 Thread-safe due to immutability	Not synchronized	Synchronized
 Less suitable for repeated modifications	Generally faster	Generally slower than StringBuilder
 
-**6. Common String Methods**
 
-Method	Description	Example
-length()	Returns string length	s.length()
-charAt()	Returns character at index	s.charAt(0)
-toUpperCase()	Converts to uppercase	s.toUpperCase()
-toLowerCase()	Converts to lowercase	s.toLowerCase()
-equals()	Compares string content	s.equals("Java")
-equalsIgnoreCase()	Compares ignoring case	s.equalsIgnoreCase("java")
-contains()	Checks substring	s.contains("av")
-substring()	Extracts part of string	s.substring(1, 3)
-indexOf()	Returns first matching index	s.indexOf("a")
-lastIndexOf()	Returns last matching index	s.lastIndexOf("a")
-trim()	Removes leading/trailing spaces	s.trim()
-replace()	Replaces characters or text	s.replace("a", "b")
-startsWith()	Checks starting text	s.startsWith("Ja")
-endsWith()	Checks ending text	s.endsWith("va")
-isEmpty()	Checks if length is zero	s.isEmpty()
-split()	Splits string into an array	s.split(" ")
+**Day12**
 
+**1. Exception**
+
+An exception is an unwanted event that occurs during program execution and interrupts the normal flow of the program.
+
+Examples: ArithmeticException, NullPointerException, IOException.
+
+
+**2. Error**
+
+An error is a serious problem that generally occurs due to system or JVM failures and is usually not handled by application programs.
+
+Examples: OutOfMemoryError, StackOverflowError.
+
+
+**3. Checked Exceptions**
+
+Checked exceptions are exceptions checked by the compiler at compile time. They must be handled using try-catch or declared using throws.
+
+Examples:
+- IOException
+- SQLException
+- FileNotFoundException
+
+
+**4. Unchecked Exceptions**
+
+Unchecked exceptions occur at runtime and are not checked by the compiler. Handling them is not compulsory.
+
+Examples:
+- ArithmeticException
+- NullPointerException
+- ArrayIndexOutOfBoundsException
+
+
+**5. try Block**
+
+The try block contains code that may generate an exception. It must be followed by at least one catch block or a finally block.
+try {
+    int result = 10 / 0;
+}
+
+
+**6. catch Block**
+
+The catch block handles exceptions thrown inside the corresponding try block.
+try {
+    int result = 10 / 0;
+} catch (ArithmeticException e) {
+    System.out.println("Cannot divide by zero");
+}
+
+
+**7. finally Block**
+
+The finally block contains code that normally executes whether an exception occurs or not. It is commonly used for cleanup operations.
+try {
+    int a = 10 / 2;
+} catch (Exception e) {
+    System.out.println(e);
+} finally {
+    System.out.println("Always executed normally");
+}
+
+Note: finally may not execute in situations such as JVM termination or a system crash.
+
+
+**8. throw Keyword**
+The throw keyword is used to explicitly throw an exception from a method or block.
+int age = 15;
+
+if (age < 18) {
+    throw new IllegalArgumentException("Not eligible");
+}
+
+
+**9. throws Keyword**
+
+The throws keyword is used in a method declaration to specify exceptions that the method may pass to its caller.
+import java.io.*;
+
+class Demo {
+    void readFile() throws IOException {
+        FileReader fr = new FileReader("test.txt");
+    }
+}
+
+
+**10. Custom Exceptions**
+
+Custom exceptions are user-defined exceptions created by extending the Exception or RuntimeException class.
+
+They are used to handle application-specific problems.
+class AgeException extends Exception {
+    AgeException(String message) {
+        super(message);
+    }
+}
+
+class Main {
+    public static void main(String[] args) throws AgeException {
+        int age = 15;
+
+        if (age < 18) {
+            throw new AgeException("Age must be 18 or above");
+        }
+    }
+}
+
+
+Important Difference: throw vs throws
+throw	throws
+Used to throw an exception explicitly	Declares possible exceptions
+Used inside a method or block	Used in method declaration
+Followed by an exception object	Followed by exception class names
+Throws one exception at a time	Can declare multiple exceptions
