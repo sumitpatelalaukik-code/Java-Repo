@@ -1133,3 +1133,106 @@ Used to throw an exception explicitly	Declares possible exceptions
 Used inside a method or block	Used in method declaration
 Followed by an exception object	Followed by exception class names
 Throws one exception at a time	Can declare multiple exceptions
+
+
+**Day13**
+
+**1. Packages**
+
+A package is a group of related classes, interfaces, and sub-packages. It helps organize code, avoid naming conflicts, and provide access control.
+
+Types of packages:
+- Built-in packages: Provided by Java, such as java.util, java.io, java.lang.
+- User-defined packages: Created by programmers to organize their own classes.
+Example:
+package mypackage;
+
+public class Student {
+    void display() {
+        System.out.println("Hello Java");
+    }
+}
+
+
+**2. Imports**
+
+The import keyword is used to access classes and interfaces from other packages without writing their fully qualified names.
+
+Types:
+- Single class import: import java.util.Scanner;
+- Package wildcard import: import java.util.*;
+- Static import: import static java.lang.Math.PI;
+Example:
+import java.util.Scanner;
+
+class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+    }
+}
+
+
+**3. Java API**
+
+Java API (Application Programming Interface) is a collection of predefined classes, interfaces, and methods provided by Java to simplify programming.
+
+Common Java API packages:
+Package	Purpose
+java.lang	Basic classes like String and Math
+java.util	Collections, Scanner, ArrayList
+java.io	File handling and input/output
+java.sql	Database connectivity
+java.net	Networking
+java.time	Date and time operations
+
+**4. Access Control**
+
+Access control defines where classes, methods, and variables can be accessed. Java provides four access levels.
+Modifier	Same Class	Same Package	Subclass (Other Package)	Other Package
+private	Yes	No	No	No
+default	Yes	Yes	No	No
+protected	Yes	Yes	Yes	No
+public	Yes	Yes	Yes	Yes
+
+Purpose: Protect data, control visibility, and improve security.
+
+**5. Naming Conventions**
+
+Naming conventions are standard rules used to give meaningful names to Java classes, methods, variables, and packages.
+Element	Convention	Example
+Class	PascalCase	StudentDetails
+Interface	PascalCase	Runnable
+Method	camelCase	calculateSalary()
+Variable	camelCase	studentName
+Constant	UPPER_SNAKE_CASE	MAX_VALUE
+Package	Lowercase	com.example.demo
+
+Note: Java is case-sensitive, so studentName and StudentName are different identifiers.
+
+**6. Project Organization**
+
+Project organization means arranging Java files, packages, classes, and resources in a structured way. It makes code easier to understand, maintain, and reuse.
+
+Example project structure:
+StudentManagement/
+│
+├── src/
+│   └── com/
+│       └── example/
+│           └── student/
+│               ├── Main.java
+│               ├── Student.java
+│               └── StudentService.java
+│
+├── resources/
+│
+└── README.md
+
+
+Benefits:
+- Better code readability.
+- Easy maintenance.
+- Code reusability.
+- Separation of responsibilities.
+- Easier debugging and teamwork.
+Quick Revision
