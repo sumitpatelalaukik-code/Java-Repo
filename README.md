@@ -1235,4 +1235,135 @@ Benefits:
 - Code reusability.
 - Separation of responsibilities.
 - Easier debugging and teamwork.
-Quick Revision
+
+
+**Day14**
+
+**1. Collection Framework**
+
+The Java Collection Framework is a set of classes and interfaces used to store, manage, and manipulate groups of objects dynamically.
+
+Main components:
+- Interfaces: List, Set, Queue, Map.
+- Classes: ArrayList, LinkedList, HashSet, TreeSet, etc.
+- Utility methods: Sorting, searching, reversing, etc.
+Benefits:
+- Dynamic data storage.
+- Code reusability.
+- Easy searching and sorting.
+- Reduces programming effort.
+
+
+**2. List**
+List is an interface in Java that stores an ordered collection of elements. It allows duplicate values and maintains insertion order.
+
+Features:
+- Allows duplicates.
+- Maintains insertion order.
+- Supports index-based access.
+- Can store null values in common implementations.
+
+
+**3. ArrayList**
+
+ArrayList is a resizable array implementation of the List interface. It automatically grows when elements are added.
+
+Features:
+- Maintains insertion order.
+- Allows duplicate elements.
+- Fast element access using index.
+- Slower insertion/deletion in the middle.
+- Not synchronized (not thread-safe by default).
+import java.util.ArrayList;
+
+class Main {
+    public static void main(String[] args) {
+        ArrayList<String> list = new ArrayList<>();
+
+        list.add("Java");
+        list.add("Python");
+        list.add("Java");
+
+        System.out.println(list.get(0));
+        System.out.println(list);
+    }
+}
+
+
+**4. LinkedList**
+LinkedList is a doubly linked list implementation of the List and Deque interfaces. Each node stores data and references to the previous and next nodes.
+
+Features:
+- Maintains insertion order.
+- Allows duplicate elements.
+- Efficient insertion/deletion at known positions.
+- Slower random access compared to ArrayList.
+- Not synchronized.
+import java.util.LinkedList;
+
+class Main {
+    public static void main(String[] args) {
+        LinkedList<String> list = new LinkedList<>();
+
+        list.add("Java");
+        list.add("Python");
+        list.addFirst("C++");
+
+        System.out.println(list);
+    }
+}
+
+
+**5. Vector**
+
+Vector is a resizable array implementation of the List interface. Its methods are synchronized, making individual operations thread-safe.
+
+Features:
+- Maintains insertion order.
+- Allows duplicate elements.
+- Automatically grows when needed.
+- Synchronized.
+- Generally slower than ArrayList due to synchronization overhead.
+import java.util.Vector;
+
+class Main {
+    public static void main(String[] args) {
+        Vector<Integer> v = new Vector<>();
+
+        v.add(10);
+        v.add(20);
+        v.add(30);
+
+        System.out.println(v);
+    }
+}
+
+
+**6. Iterator**
+
+Iterator is an interface used to traverse elements of a collection one by one. It allows safe removal of elements during iteration using its remove() method.
+
+Important methods:
+Method	Purpose
+hasNext()	Checks whether another element exists
+next()	Returns the next element
+remove()	Removes the current element
+
+Example:
+import java.util.*;
+
+class Main {
+    public static void main(String[] args) {
+        ArrayList<String> list = new ArrayList<>();
+
+        list.add("Java");
+        list.add("Python");
+        list.add("C++");
+
+        Iterator<String> it = list.iterator();
+
+        while (it.hasNext()) {
+            System.out.println(it.next());
+        }
+    }
+}
