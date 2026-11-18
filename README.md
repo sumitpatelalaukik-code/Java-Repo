@@ -1367,3 +1367,160 @@ class Main {
         }
     }
 }
+
+
+**Day15**
+
+
+**1. Set**
+
+A Set is an interface in the Java Collection Framework used to store unique elements.
+
+Features:
+- Does not allow duplicate elements.
+- Does not support index-based access.
+- Can store null depending on its implementation.
+- Common implementations: HashSet, LinkedHashSet, TreeSet.
+Set<String> names = new HashSet<>();
+
+names.add("Sumit");
+names.add("Rahul");
+names.add("Sumit"); // Duplicate ignored
+
+System.out.println(names);
+
+
+**2. HashSet**
+
+HashSet is a class that implements the Set interface and stores unique elements using a hash table.
+
+Features:
+- Does not allow duplicates.
+- Does not maintain insertion order.
+- Allows one null element.
+- Provides average O(1) insertion, deletion, and searching.
+HashSet<Integer> set = new HashSet<>();
+
+set.add(10);
+set.add(20);
+set.add(10);
+
+System.out.println(set);
+
+
+**3. LinkedHashSet**
+
+LinkedHashSet is a class that maintains the insertion order of unique elements.
+
+Features:
+- Does not allow duplicates.
+- Maintains insertion order.
+- Allows one null element.
+- Slightly more memory usage than HashSet.
+LinkedHashSet<Integer> set = new LinkedHashSet<>();
+
+set.add(30);
+set.add(10);
+set.add(20);
+
+System.out.println(set); // [30, 10, 20]
+
+
+**4. TreeSet**
+
+TreeSet is a class that stores unique elements in sorted order.
+
+Features:
+- Does not allow duplicates.
+- Stores elements in ascending natural order by default.
+- Does not allow null in its normal natural-order configuration.
+- Uses a Red-Black Tree internally.
+- Insertion, deletion, and searching take O(log n).
+TreeSet<Integer> set = new TreeSet<>();
+
+set.add(30);
+set.add(10);
+set.add(20);
+
+System.out.println(set); // [10, 20, 30]
+
+
+**5. Map**
+
+A Map is an interface used to store data in key-value pairs.
+
+Features:
+- Each key must be unique.
+- Values can be duplicated.
+- Each key maps to one value.
+- Common implementations: HashMap, LinkedHashMap, TreeMap.
+- Map is part of the Collection Framework but does not extend the Collection interface.
+Map<Integer, String> map = new HashMap<>();
+
+map.put(1, "Sumit");
+map.put(2, "Rahul");
+
+System.out.println(map.get(1)); // Sumit
+
+
+**6. HashMap**
+
+HashMap stores data in key-value pairs using a hash table.
+
+Features:
+- Does not maintain insertion order.
+- Allows one null key.
+- Allows multiple null values.
+- Keys must be unique.
+- Average O(1) insertion, deletion, and searching.
+HashMap<Integer, String> map = new HashMap<>();
+
+map.put(1, "Java");
+map.put(2, "Python");
+map.put(3, "C++");
+
+System.out.println(map.get(2)); // Python
+
+
+**7. LinkedHashMap**
+
+LinkedHashMap maintains the insertion order of key-value pairs.
+
+Features:
+- Maintains insertion order by default.
+- Does not allow duplicate keys.
+- Allows one null key and multiple null values.
+- Slightly more memory usage than HashMap.
+LinkedHashMap<Integer, String> map = new LinkedHashMap<>();
+
+map.put(3, "C++");
+map.put(1, "Java");
+map.put(2, "Python");
+
+System.out.println(map);
+
+Output:
+{3=C++, 1=Java, 2=Python}
+
+
+**8. TreeMap**
+
+TreeMap stores key-value pairs in sorted order of keys.
+
+Features:
+- Sorts keys in ascending natural order by default.
+- Does not allow duplicate keys.
+- Does not allow null keys with natural ordering.
+- Allows multiple null values.
+- Uses a Red-Black Tree internally.
+- Insertion, deletion, and searching take O(log n).
+TreeMap<Integer, String> map = new TreeMap<>();
+
+map.put(3, "C++");
+map.put(1, "Java");
+map.put(2, "Python");
+
+System.out.println(map);
+
+Output:
+{1=Java, 2=Python, 3=C++}
