@@ -1524,3 +1524,321 @@ System.out.println(map);
 
 Output:
 {1=Java, 2=Python, 3=C++}
+
+**Day16**
+
+**1. Generics**
+
+Generics allow us to write classes, interfaces, and methods that work with different data types while maintaining type safety.
+
+Benefits:
+- Code reusability.
+- Type safety.
+- Reduces the need for type casting.
+- Errors can be detected at compile time.
+Example:
+ArrayList<String> names = new ArrayList<>();
+
+names.add("Sumit");
+names.add("Rahul");
+
+names.add(100); // Compile-time error
+
+Here, String specifies the type of elements the ArrayList can store.
+
+
+**2. Generic Classes**
+
+A generic class is a class that can work with different data types using a type parameter.
+
+The type parameter is commonly represented by T.
+
+Example:
+class Box<T> {
+    T value;
+
+    void setValue(T value) {
+        this.value = value;
+    }
+
+    T getValue() {
+        return value;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Box<Integer> b1 = new Box<>();
+        b1.setValue(100);
+
+        Box<String> b2 = new Box<>();
+        b2.setValue("Java");
+
+        System.out.println(b1.getValue());
+        System.out.println(b2.getValue());
+    }
+}
+
+Here, the same Box class works with both Integer and String.
+
+
+**3. Generic Methods**
+
+A generic method is a method that declares its own type parameter and can work with different data types.
+
+Example:
+class Demo {
+    public <T> void display(T value) {
+        System.out.println(value);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Demo d = new Demo();
+
+        d.display(100);
+        d.display("Hello");
+        d.display(10.5);
+    }
+}
+
+Here, <T> declares the method's type parameter.
+
+
+**4. Type Safety**
+
+Type safety means ensuring that only the correct type of data is used in a program.
+
+Generics provide type safety by checking data types at compile time.
+
+Without Generics:
+ArrayList list = new ArrayList();
+
+list.add("Java");
+list.add(100);
+
+String s = (String) list.get(1); // Runtime error
+
+With Generics:
+ArrayList<String> list = new ArrayList<>();
+
+list.add("Java");
+// list.add(100); // Compile-time error
+
+Benefit: Generics help prevent ClassCastException caused by incorrect type usage.
+
+
+**5. Wildcard**
+
+A wildcard (?) represents an unknown type in Generics.
+
+It allows methods to work with collections of different types.
+
+Example:
+public static void display(List<?> list) {
+    for (Object value : list) {
+        System.out.println(value);
+    }
+}
+
+This method can accept List<Integer>, List<String>, etc.
+
+There are three main types of wildcards:
+
+1. Unbounded Wildcard (?)
+
+Accepts a list of any type.
+List<?> list;
+
+2. Upper Bounded Wildcard (? extends Type)
+
+Accepts the specified type or its subclasses.
+List<? extends Number> list;
+
+Example: Integer, Double, and Float lists are accepted.
+
+3. Lower Bounded Wildcard (? super Type)
+
+Accepts the specified type or its parent classes.
+List<? super Integer> list;
+
+Example: Integer, Number, and Object lists are accepted.
+
+
+**6. Bounded Types**
+
+Bounded types restrict the types that can be used as generic type arguments.
+
+They are useful when we want a generic class or method to work only with specific types.
+
+Example:
+class Calculator<T extends Number> {
+    T value;
+
+    Calculator(T value) {
+        this.value = value;
+    }
+}
+
+Usage:
+Calculator<Integer> c1 = new Calculator<>(100);
+Calculator<Double> c2 = new Calculator<>(10.5);
+
+// Calculator<String> c3 = new Calculator<>("Java");
+// Compile-time error
+
+Here, T extends Number means that only Number or its subclasses can be used.
+
+
+**Day17**
+
+**1. Functional Interfaces**
+
+A Functional Interface is an interface that contains exactly one abstract method.
+
+It is also called a SAM (Single Abstract Method) Interface.
+
+Features:
+- Contains only one abstract method.
+- Can contain multiple default and static methods.
+- Supports lambda expressions.
+- @FunctionalInterface annotation is optional but recommended.
+Example:
+@FunctionalInterface
+interface MyInterface {
+    void show();
+}
+
+public class Main {
+    public static void main(String[] args) {
+        MyInterface obj = () -> System.out.println("Hello Java");
+        obj.show();
+    }
+}
+
+Common built-in functional interfaces: Predicate, Consumer, Supplier, and Function.
+
+
+**2. Lambda Expressions**
+
+A Lambda Expression is a short way to implement the abstract method of a functional interface without creating a separate class.
+
+Syntax:
+(parameters) -> { method body }
+
+Example:
+interface Addition {
+    int add(int a, int b);
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Addition obj = (a, b) -> a + b;
+
+        System.out.println(obj.add(10, 20));
+    }
+}
+
+Output:
+30
+
+Benefits:
+- Reduces boilerplate code.
+- Makes code shorter and readable.
+- Useful in Collections and Stream API.
+- Supports functional programming.
+
+
+**3. Predicate**
+
+Predicate<T> is a functional interface used to check a condition and return a boolean value.
+
+Its abstract method is:
+boolean test(T t);
+
+Example:
+import java.util.function.Predicate;
+
+public class Main {
+    public static void main(String[] args) {
+        Predicate<Integer> isEven = n -> n % 2 == 0;
+
+        System.out.println(isEven.test(10)); // true
+        System.out.println(isEven.test(7));  // false
+    }
+}
+
+Use: Filtering data and checking conditions.
+
+
+**4. Consumer**
+
+Consumer<T> is a functional interface that accepts a value but does not return anything.
+
+Its abstract method is:
+void accept(T t);
+
+Example:
+import java.util.function.Consumer;
+
+public class Main {
+    public static void main(String[] args) {
+        Consumer<String> print = name -> System.out.println(name);
+
+        print.accept("Sumit");
+    }
+}
+
+Output:
+Sumit
+
+Use: Printing values, displaying data, and performing operations on objects.
+
+
+**5. Supplier**
+
+Supplier<T> is a functional interface that does not accept any input but returns a value.
+
+Its abstract method is:
+T get();
+
+Example:
+import java.util.function.Supplier;
+
+public class Main {
+    public static void main(String[] args) {
+        Supplier<String> message = () -> "Welcome to Java";
+
+        System.out.println(message.get());
+    }
+}
+
+Output:
+Welcome to Java
+
+Use: Generating or supplying values when required.
+
+
+**6. Function**
+
+Function<T, R> is a functional interface that accepts an input of type T and returns a result of type R.
+
+Its abstract method is:
+R apply(T t);
+
+Example:
+import java.util.function.Function;
+
+public class Main {
+    public static void main(String[] args) {
+        Function<Integer, Integer> square = n -> n * n;
+
+        System.out.println(square.apply(5));
+    }
+}
+
+Output:
+25
+
+Use: Converting, processing, or transforming data.
