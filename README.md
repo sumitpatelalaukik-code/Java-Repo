@@ -1842,3 +1842,174 @@ Output:
 25
 
 Use: Converting, processing, or transforming data.
+
+
+**Day18**
+
+**1. Stream**
+
+A Stream in Java is used to process collections of data in a simple and functional way.
+
+It was introduced in Java 8.
+
+Features:
+- Processes data from collections, arrays, etc.
+- Supports operations like filtering, sorting, and mapping.
+- Does not modify the original collection.
+- Supports sequential and parallel processing.
+- Stream operations are generally performed in a pipeline.
+Example:
+List<Integer> numbers = Arrays.asList(10, 20, 30, 40);
+
+numbers.stream()
+       .forEach(System.out::println);
+
+
+**2. filter()**
+
+filter() is used to select elements that satisfy a given condition.
+- Takes a Predicate.
+- Returns a new Stream containing matching elements.
+Example:
+List<Integer> numbers = Arrays.asList(10, 15, 20, 25, 30);
+
+numbers.stream()
+       .filter(n -> n > 20)
+       .forEach(System.out::println);
+
+Output:
+25
+30
+
+
+**3. map()**
+
+map() is used to transform each element into another value.
+- Takes a Function.
+- Returns a new Stream of transformed elements.
+Example:
+List<Integer> numbers = Arrays.asList(1, 2, 3, 4);
+
+numbers.stream()
+       .map(n -> n * n)
+       .forEach(System.out::println);
+
+Output:
+1
+4
+9
+16
+
+
+**4. sorted()**
+
+sorted() is used to sort elements in natural order by default.
+
+Example:
+List<Integer> numbers = Arrays.asList(40, 10, 30, 20);
+
+numbers.stream()
+       .sorted()
+       .forEach(System.out::println);
+
+Output:
+10
+20
+30
+40
+
+For descending order:
+.sorted(Comparator.reverseOrder())
+
+
+**5. collect()**
+
+collect() is used to convert Stream elements into a collection or another result.
+
+It is commonly used with Collectors.
+
+Example:
+List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+
+List<Integer> result = numbers.stream()
+        .filter(n -> n > 2)
+        .collect(Collectors.toList());
+
+System.out.println(result);
+
+Output:
+[3, 4, 5]
+
+
+**6. reduce()**
+
+reduce() combines all elements of a Stream into a single result.
+
+It is commonly used for sum, multiplication, and finding a combined value.
+
+Example:
+List<Integer> numbers = Arrays.asList(1, 2, 3, 4);
+
+int sum = numbers.stream()
+        .reduce(0, (a, b) -> a + b);
+
+System.out.println(sum);
+
+Output:
+10
+
+Here, 0 is the initial value and (a, b) -> a + b combines the elements.
+
+
+**7. forEach()**
+
+forEach() is used to perform an operation on every element of a Stream.
+
+Example:
+List<String> names = Arrays.asList("Sumit", "Rahul", "Amit");
+
+names.stream()
+     .forEach(name -> System.out.println(name));
+
+Output:
+Sumit
+Rahul
+Amit
+
+
+**8. distinct()**
+
+distinct() removes duplicate elements from a Stream.
+
+Example:
+List<Integer> numbers =
+        Arrays.asList(10, 20, 10, 30, 20);
+
+numbers.stream()
+       .distinct()
+       .forEach(System.out::println);
+
+Output:
+10
+20
+30
+
+It uses equals() to identify duplicates.
+
+
+**9. limit()**
+
+limit() restricts a Stream to a specified number of elements.
+
+Example:
+List<Integer> numbers =
+        Arrays.asList(10, 20, 30, 40, 50);
+
+numbers.stream()
+       .limit(3)
+       .forEach(System.out::println);
+
+Output:
+10
+20
+30
