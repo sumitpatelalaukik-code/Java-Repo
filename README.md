@@ -2013,3 +2013,502 @@ Output:
 10
 20
 30
+
+**Day19**
+
+**1. Optional**
+
+Optional is a container class introduced in Java 8 that may or may not contain a value.
+
+It helps avoid NullPointerException by handling potentially null values safely.
+
+Important methods:
+- of() – Creates Optional with a non-null value.
+- ofNullable() – Creates Optional that may contain null.
+- empty() – Creates an empty Optional.
+- isPresent() – Checks whether a value exists.
+- orElse() – Returns the value or a default value.
+- get() – Returns the stored value (throws an exception if empty).
+Example:
+import java.util.Optional;
+
+public class Main {
+    public static void main(String[] args) {
+
+        String name = null;
+
+        Optional<String> result = Optional.ofNullable(name);
+
+        System.out.println(result.orElse("Unknown"));
+    }
+}
+
+Output:
+Unknown
+
+Use: Handling values that might be null.
+
+
+**2. LocalDate**
+
+LocalDate represents a date without time, such as day, month, and year.
+
+It belongs to the java.time package.
+
+Example:
+import java.time.LocalDate;
+
+public class Main {
+    public static void main(String[] args) {
+
+        LocalDate date = LocalDate.now();
+
+        System.out.println(date);
+        System.out.println(date.getDayOfMonth());
+        System.out.println(date.getMonth());
+        System.out.println(date.getYear());
+    }
+}
+
+Important methods:
+- now() – Gets the current date.
+- of() – Creates a specific date.
+- plusDays() – Adds days.
+- minusMonths() – Subtracts months.
+- getYear() – Returns the year.
+
+
+**3. LocalTime**
+
+LocalTime represents time without a date.
+
+It stores hours, minutes, seconds, and nanoseconds.
+
+Example:
+import java.time.LocalTime;
+
+public class Main {
+    public static void main(String[] args) {
+
+        LocalTime time = LocalTime.now();
+
+        System.out.println(time);
+        System.out.println(time.getHour());
+        System.out.println(time.getMinute());
+    }
+}
+
+Important methods:
+- now() – Gets current time.
+- of() – Creates a specific time.
+- plusHours() – Adds hours.
+- minusMinutes() – Subtracts minutes.
+- getHour() – Returns the hour.
+
+
+**4. LocalDateTime**
+LocalDateTime represents both date and time without a time zone.
+
+Example:
+import java.time.LocalDateTime;
+
+public class Main {
+    public static void main(String[] args) {
+
+        LocalDateTime dateTime = LocalDateTime.now();
+
+        System.out.println(dateTime);
+        System.out.println(dateTime.getYear());
+        System.out.println(dateTime.getHour());
+    }
+}
+
+Important methods:
+- now() – Gets current date and time.
+- of() – Creates a specific date and time.
+- plusDays() – Adds days.
+- minusHours() – Subtracts hours.
+- toLocalDate() – Extracts the date.
+- toLocalTime() – Extracts the time.
+
+
+**5. Date Formatting**
+
+Date formatting means converting date and time values into a required readable format.
+
+Java uses the DateTimeFormatter class for formatting and parsing.
+
+Example:
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+public class Main {
+    public static void main(String[] args) {
+
+        LocalDateTime date = LocalDateTime.now();
+
+        DateTimeFormatter formatter =
+            DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+
+        String result = date.format(formatter);
+
+        System.out.println(result);
+    }
+}
+
+Example output:
+24-11-2026 11:30
+
+Common formatting patterns:
+Pattern	Meaning	Example
+dd	Day	24
+MM	Month	11
+yyyy	Year	2026
+HH	Hour (24-hour)	14
+hh	Hour (12-hour)	02
+mm	Minutes	30
+ss	Seconds	45
+a	AM/PM	PM
+
+Note: Uppercase MM means month, while lowercase mm means minutes.
+
+
+**6. Java Time API**
+
+The Java Time API is a modern date and time API introduced in Java 8 under the java.time package.
+
+It provides classes to handle dates, times, durations, periods, and time zones.
+
+Important classes:
+Class	Purpose
+LocalDate	Date only
+LocalTime	Time only
+LocalDateTime	Date and time
+ZonedDateTime	Date and time with time zone
+Instant	Specific moment on the UTC timeline
+Period	Difference between dates
+Duration	Difference between times
+DateTimeFormatter	Formatting and parsing
+
+Benefits:
+- Immutable and thread-safe date/time objects.
+- Easy date and time calculations.
+- Better time-zone handling.
+- Simple formatting and parsing.
+- Avoids many problems of the older Date and Calendar APIs.
+
+
+**Day20**
+**Java – : Multithreading**
+
+
+**1. Process vs Thread**
+
+Process: A process is an independent program that is currently executing. It has its own memory space and resources.
+
+Thread: A thread is a lightweight unit of execution within a process. Multiple threads can run within the same process and share its memory.
+
+Example: A browser is a process, while its tabs or background tasks may perform work using multiple threads.
+
+Process
+
+Thread
+
+Independent program in execution
+
+Unit of execution inside a process
+
+Has separate memory space
+
+Shares process memory
+
+More resource-intensive
+
+Lightweight
+
+Communication is comparatively complex
+
+Communication through shared memory is easier
+
+Slower to create
+
+Faster to create
+
+
+**2. Thread Lifecycle**
+
+A Java thread has six official states defined in the Thread.State enum.
+
+Thread lifecycle
+
+NEW
+
+Thread object created
+
+start()
+
+RUNNABLE
+
+Ready or running, waiting for CPU scheduling
+
+Waiting for a lock / wait / sleep / join
+
+BLOCKED / WAITING / TIMED_WAITING
+
+Temporarily unable to proceed
+
+Condition satisfied / lock acquired
+
+RUNNABLE
+
+Can continue execution
+
+run() completes
+
+TERMINATED
+
+Thread execution finished
+
+Six official states:
+
+State
+
+Meaning
+
+NEW
+
+Thread is created but not started
+
+RUNNABLE
+
+Ready or executing
+
+BLOCKED
+
+Waiting to acquire a monitor lock
+
+WAITING
+
+Waiting indefinitely for another thread's action
+
+TIMED_WAITING
+
+Waiting for a specified time
+
+TERMINATED
+
+Thread execution is completed
+
+
+**3. Creating Threads**
+
+Java provides two common ways to create and execute threads.
+
+Method 1: Extending Thread class
+
+Create a class that extends Thread and override its run() method.
+
+class MyThread extends Thread {
+    public void run() {
+        System.out.println("Thread is running");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        MyThread t = new MyThread();
+        t.start();
+    }
+}
+
+Method 2: Implementing Runnable interface
+
+Create a class that implements Runnable and override its run() method.
+
+class MyTask implements Runnable {
+    public void run() {
+        System.out.println("Task is running");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Thread t = new Thread(new MyTask());
+        t.start();
+    }
+}
+
+Important: Call start() to start a new thread. Calling run() directly executes it like a normal method in the current thread.
+
+
+**4. Runnable**
+
+Runnable is a functional interface used to define a task that can be executed by a thread.
+
+It contains one abstract method:
+
+public void run();
+
+Example using Lambda:
+
+Runnable task = () -> {
+    System.out.println("Hello from thread");
+};
+
+Thread t = new Thread(task);
+t.start();
+
+Benefits:
+
+Separates task logic from thread management.
+
+Allows a class to extend another class.
+
+Supports lambda expressions.
+
+Can be used with ExecutorService.
+
+
+**5. Thread Synchronization**
+
+Synchronization is a mechanism that controls access to shared resources when multiple threads are executing.
+
+It ensures that only one thread at a time executes a synchronized section protected by the same lock.
+
+Example:
+
+class Counter {
+    int count = 0;
+
+    synchronized void increment() {
+        count++;
+    }
+}
+
+Here, synchronized prevents multiple threads from executing increment() simultaneously on the same Counter object.
+
+Types:
+
+Synchronized method.
+
+Synchronized block.
+
+Static synchronization.
+
+Use: Prevents data inconsistency when multiple threads access shared resources.
+
+
+**6. Race Condition**
+
+A Race Condition occurs when multiple threads access and modify shared data at the same time, and the final result depends on their execution order.
+
+Example:
+
+class Counter {
+    int count = 0;
+
+    void increment() {
+        count++;
+    }
+}
+
+If two threads execute increment() simultaneously, both might read the same old value and overwrite each other's updates.
+
+Solution:
+
+Use synchronized.
+
+Use atomic classes such as AtomicInteger.
+
+Use appropriate locks.
+
+
+**7. ExecutorService**
+
+ExecutorService is an interface in java.util.concurrent used to manage and execute multiple tasks without manually creating threads.
+
+It separates task submission from thread management.
+
+Example:
+
+import java.util.concurrent.*;
+
+public class Main {
+    public static void main(String[] args) {
+
+        ExecutorService executor =
+            Executors.newFixedThreadPool(2);
+
+        executor.submit(() ->
+            System.out.println("Task is running")
+        );
+
+        executor.shutdown();
+    }
+}
+
+Important methods:
+
+Method
+
+Purpose
+
+execute()
+
+Executes a Runnable task
+
+submit()
+
+Submits a task and returns a Future
+
+shutdown()
+
+Stops accepting new tasks and finishes submitted tasks
+
+shutdownNow()
+
+Attempts to stop running tasks and returns waiting tasks
+
+isShutdown()
+
+Checks whether shutdown has started
+
+awaitTermination()
+
+Waits for termination up to a specified time
+
+
+**8. Thread Pool**
+
+A Thread Pool is a group of pre-created or reusable worker threads that execute multiple tasks.
+
+Instead of creating a new thread for every task, threads are reused.
+
+Benefits:
+
+Reduces thread creation overhead.
+
+Improves performance.
+
+Controls the number of concurrent threads.
+
+Makes thread management easier.
+
+Example:
+
+ExecutorService pool =
+    Executors.newFixedThreadPool(3);
+
+for (int i = 1; i <= 5; i++) {
+    int task = i;
+
+    pool.submit(() ->
+        System.out.println("Task " + task +
+                           " executed by " +
+                           Thread.currentThread().getName())
+    );
+}
+
+pool.shutdown();
+
+Here, five tasks are submitted, but only three worker threads are available to execute them concurrently.
