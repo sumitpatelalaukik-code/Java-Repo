@@ -1,0 +1,210 @@
+// SQL CRUD Queries 
+
+C - Create
+CREATE TABLE employee(empId INT PRIMARY KEY,empDepartment VARCHAR(50) NOT NULL,empRole VARCHAR(50) NOT NULL);
+
+I - Insert
+INSERT INTO employee (empId, empDepartment, empRole) VALUES(101 , "IT" , "Software Developer"),
+															(102 , "HR" , "Manager"),
+															(103 , "Sales" , "Client Associate"),
+															(104 , "IT" , "Java Developer");
+R - Read
+SELECT * FROM employee;
+SELECT empId,empRole FROM employee;
+SELECT empid,empDepartment FROM employee WHERE empId = 102;
+
+U - Update
+UPDATE employee 
+SET empDepartment = "Finance", empRole = "Casher" 
+WHERE empId = 104;
+
+D - Delete
+DELETE FROM employee 
+WHERE empId = 103;
+
+•WHERE  •ORDER BY •GROUP BY  •HAVING
+
+SELECT empId, empDepartment, empRole
+FROM employee
+WHERE empDepartment != 'HR'
+ORDER BY empRole ASC;
+
+SELECT empDepartment, COUNT(empId) AS total_employees
+FROM employee
+GROUP BY empDepartment
+HAVING COUNT(empId) > 1
+ORDER BY total_employees DESC;
+
+
+//Theory: SQL CRUD and Queries
+
+1. CREATE
+CREATE is a DDL (Data Definition Language) command used to create database objects such as databases and tables.
+Example:
+CREATE TABLE Students (
+    id INT PRIMARY KEY,
+    name VARCHAR(50),
+    age INT,
+    city VARCHAR(50),
+    marks INT
+);
+
+Use: Creates a new table with specified columns and data types.
+
+
+2. INSERT
+INSERT is a DML (Data Manipulation Language) command used to add new records into a table.
+Example:
+INSERT INTO Students
+(id, name, age, city, marks)
+VALUES
+(1, 'Sumit', 21, 'Indore', 85);
+
+Insert multiple records:
+INSERT INTO Students
+(id, name, age, city, marks)
+VALUES
+(2, 'Rahul', 22, 'Bhopal', 75),
+(3, 'Amit', 20, 'Indore', 90);
+
+Use: Adds new data to a table.
+
+
+3. SELECT
+SELECT is used to retrieve data from one or more database tables.
+Example:
+-- Select all columns
+SELECT * FROM Students;
+
+-- Select specific columns
+SELECT name, marks FROM Students;
+
+Use: Displays the required records from a table.
+
+
+4. UPDATE
+UPDATE is used to modify existing records in a table.
+
+Example:
+UPDATE Students
+SET marks = 95
+WHERE id = 1;
+
+Use: Changes existing data.
+Important
+ Always use WHERE when you want to update specific records. Without it, all rows may be updated.
+
+
+5. DELETE
+DELETE is a DML command used to remove records from a table.
+Example:
+DELETE FROM Students
+WHERE id = 2;
+
+Use: Removes specific records.
+Without WHERE:
+DELETE FROM Students;
+
+This deletes all records but keeps the table structure.
+
+
+6. WHERE
+WHERE is used to filter records based on a specified condition.
+Example:
+SELECT * FROM Students
+WHERE marks > 80;
+
+Output: Students whose marks are greater than 80.
+
+Common operators:
+Operator	Meaning
+=	Equal to
+!= or <>	Not equal to
+>	Greater than
+<	Less than
+>=	Greater than or equal to
+<=	Less than or equal to
+AND	Both conditions must be true
+OR	At least one condition must be true
+BETWEEN	Checks a range
+IN	Matches values in a list
+LIKE	Pattern matching
+IS NULL	Checks NULL values
+
+Example:
+SELECT * FROM Students
+WHERE city = 'Indore' AND marks > 80;
+
+
+7. ORDER BY
+ORDER BY is used to sort records in ascending or descending order.
+- ASC – Ascending order (default).
+- DESC – Descending order.
+Example:
+-- Ascending order
+SELECT * FROM Students
+ORDER BY marks ASC;
+
+-- Descending order
+SELECT * FROM Students
+ORDER BY marks DESC;
+
+Use: Sorts records based on one or more columns.
+
+
+8. GROUP BY
+GROUP BY is used to group rows having the same values in specified columns.
+
+It is commonly used with aggregate functions such as:
+- COUNT() – Counts records.
+- SUM() – Calculates total.
+- AVG() – Calculates average.
+- MAX() – Finds maximum value.
+- MIN() – Finds minimum value.
+Example:
+SELECT city, COUNT(*) AS total_students
+FROM Students
+GROUP BY city;
+
+Output:
+city	total_students
+Indore	2
+Bhopal	1
+Pune	1
+
+Use: Generates summarized information from data.
+
+
+9. HAVING
+HAVING is used to filter grouped records based on aggregate conditions.
+It is generally used with GROUP BY.
+Example:
+SELECT city, AVG(marks) AS average_marks
+FROM Students
+GROUP BY city
+HAVING AVG(marks) > 80;
+
+This displays only cities whose average marks are greater than 80.
+
+Use: Filters groups after grouping.
+
+Important Difference: WHERE vs HAVING
+WHERE	HAVING
+Filters individual rows	Filters groups
+Applied before grouping	Applied after grouping
+Generally used before GROUP BY	Generally used after GROUP BY
+Cannot directly filter on aggregate results	Can filter using aggregate functions
+
+SQL Query Execution Order
+Although we generally write SELECT first, the logical processing order is:
+1. FROM
+
+2. WHERE
+
+3. GROUP BY
+
+4. HAVING
+
+5. SELECT
+
+6. ORDER BY
