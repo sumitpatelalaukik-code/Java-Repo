@@ -1,0 +1,346 @@
+MySQL: Joins, Subqueries, Aggregate Functions and Indexes
+
+1. Create the database and tables
+- department — department details
+- employee — employee details
+- salary — employee salary details
+
+CREATE DATABASE company_db;
+USE company_db;
+
+
+Department table
+CREATE TABLE department (
+    department_id INT PRIMARY KEY,
+    department_name VARCHAR(50)
+);
+
+
+Employee table
+CREATE TABLE employee (
+    employee_id INT PRIMARY KEY,
+    employee_name VARCHAR(50),
+    department_id INT,
+    FOREIGN KEY (department_id)
+        REFERENCES department(department_id)
+);
+
+
+Salary table
+CREATE TABLE salary (
+    salary_id INT PRIMARY KEY,
+    employee_id INT,
+    basic_salary DECIMAL(10,2),
+    bonus DECIMAL(10,2),
+    FOREIGN KEY (employee_id)
+        REFERENCES employee(employee_id)
+);
+
+
+2. Insert sample data
+INSERT INTO department VALUES
+(1, 'IT'),
+(2, 'HR'),
+(3, 'Finance'),
+(4, 'Marketing');
+
+INSERT INTO employee VALUES
+(101, 'Sumit', 1),
+(102, 'Rahul', 2),
+(103, 'Amit', 1),
+(104, 'Priya', 3),
+(105, 'Sufiyan', 2),
+(106, 'Karan', NULL);
+
+INSERT INTO salary VALUES
+(1, 101, 50000, 5000),
+(2, 102, 30000, 2000),
+(3, 103, 80000, 10000),
+(4, 104, 60000, 5000),
+(5, 105, 35000, 3000);
+
+
+Notice:
+- Marketing has no employees.
+- Karan has no department.
+- Karan has no salary record.
+These examples will help us understand different joins.
+
+
+3. Joins in MySQL
+A JOIN is used to retrieve related data from multiple tables.
+A. INNER JOIN
+Returns only matching records from both tables.
+SELECT
+    e.employee_id,
+    e.employee_name,
+    d.department_name
+FROM employee e
+INNER JOIN department d
+    ON e.department_id = d.department_id;
+
+Expected result:
+employee_id	employee_name	department_name
+101	Sumit	IT
+102	Rahul	HR
+103	Amit	IT
+104	Priya	Finance
+105	Sufiyan	HR
+
+Karan is not displayed because he does not have a matching department.
+
+B. LEFT JOIN
+Returns all records from the left table and matching records from the right table.
+SELECT
+    e.employee_id,
+    e.employee_name,
+    d.department_name
+FROM employee e
+LEFT JOIN department d
+    ON e.department_id = d.department_id;
+
+Expected result:
+employee_id	employee_name	department_name
+101	Sumit	IT
+102	Rahul	HR
+103	Amit	IT
+104	Priya	Finance
+105	Sufiyan	HR
+106	Karan	NULL
+
+Karan appears because LEFT JOIN returns every employee, even without a matching department.
+
+C. RIGHT JOIN
+Returns all records from the right table and matching records from the left table.
+SELECT
+    e.employee_name,
+    d.department_name
+FROM employee e
+RIGHT JOIN department d
+    ON e.department_id = d.department_id;
+
+Expected result:
+employee_name	department_name
+Sumit	IT
+Amit	IT
+Rahul	HR
+Sufiyan	HR
+Priya	Finance
+NULL	Marketing
+
+Marketing appears even though it has no employees.
+Join comparison
+Join	What it returns
+INNER JOIN	Only matching records
+LEFT JOIN	All left records + matching right records
+RIGHT JOIN	All right records + matching left records
+
+
+4. Subqueries
+A subquery is a query inside another SQL query.
+
+For example, find employees whose basic salary is greater than the average basic salary.
+SELECT employee_id, basic_salary
+FROM salary
+WHERE basic_salary > (
+    SELECT AVG(basic_salary)
+    FROM salary
+);
+
+Expected result:
+employee_id	basic_salary
+101	50000
+103	80000
+104	60000
+
+The inner query calculates the average salary. The outer query finds employees earning more than that average.
+
+Another example: Find employees working in the IT department.
+SELECT employee_name
+FROM employee
+WHERE department_id = (
+    SELECT department_id
+    FROM department
+    WHERE department_name = 'IT'
+);
+
+
+5. Aggregate Functions
+Aggregate functions perform calculations on multiple rows and return a single result.
+
+Lets understand the commonly used functions.
+A. COUNT()
+Counts records.
+SELECT COUNT(*) AS total_employees
+FROM employee;
+
+Output: 6
+
+B. SUM()
+Calculates the total salary.
+SELECT SUM(basic_salary) AS total_salary
+FROM salary;
+
+Output: 255000
+
+C. AVG()
+Calculates the average salary.
+SELECT AVG(basic_salary) AS average_salary
+FROM salary;
+
+Output: 51000
+
+D. MAX()
+Finds the highest salary.
+SELECT MAX(basic_salary) AS highest_salary
+FROM salary;
+
+Output: 80000
+
+E. MIN()
+Finds the lowest salary.
+SELECT MIN(basic_salary) AS lowest_salary
+FROM salary;
+
+Output: 30000
+GROUP BY
+GROUP BY groups records based on a column.
+
+Example: Calculate department-wise total basic salary.
+SELECT
+    d.department_name,
+    SUM(s.basic_salary) AS total_salary
+FROM employee e
+JOIN department d
+    ON e.department_id = d.department_id
+JOIN salary s
+    ON e.employee_id = s.employee_id
+GROUP BY d.department_name;
+
+
+Expected result:
+department_name	total_salary
+IT	130000
+HR	65000
+Finance	60000
+
+HAVING
+HAVING filters grouped results.
+
+Example: Find departments whose total basic salary is greater than 70000.
+SELECT
+    d.department_name,
+    SUM(s.basic_salary) AS total_salary
+FROM employee e
+JOIN department d
+    ON e.department_id = d.department_id
+JOIN salary s
+    ON e.employee_id = s.employee_id
+GROUP BY d.department_name
+HAVING SUM(s.basic_salary) > 70000;
+
+Output: IT — 130000.
+
+Remember:
+- WHERE filters individual rows before grouping.
+- HAVING filters groups after grouping.
+
+
+6. Indexes
+An index helps MySQL find records faster, especially when a table contains many rows.
+
+Think of an index like the index at the back of a book. Instead of searching every page, you can quickly locate the topic.
+Create an index
+CREATE INDEX idx_employee_name
+ON employee(employee_name);
+
+Now MySQL can use this index when searching by employee name.
+SELECT *
+FROM employee
+WHERE employee_name = 'Sumit';
+
+Create a composite index
+An index can also contain multiple columns.
+CREATE INDEX idx_employee_department_name
+ON employee(department_id, employee_name);
+
+Delete an index
+DROP INDEX idx_employee_name
+ON employee;
+
+Important points:
+- Indexes can improve SELECT query performance.
+- Indexes require additional storage.
+- INSERT, UPDATE and DELETE operations can become slower because indexes also need updating.
+- MySQL automatically creates indexes for PRIMARY KEY and UNIQUE constraints.
+- Foreign key columns also need suitable indexes; MySQL creates one automatically when required.
+
+
+7. Practical: Employee Reporting Queries
+Now lets solve the four reporting tasks.
+Query 1: Employee + Department
+Display employee names along with their department names.
+SELECT
+    e.employee_id,
+    e.employee_name,
+    d.department_name
+FROM employee e
+INNER JOIN department d
+    ON e.department_id = d.department_id;
+
+Use LEFT JOIN instead if you also want employees who do not have a department.
+
+Query 2: Employee + Salary
+Display employee names along with their basic salary and bonus.
+SELECT
+    e.employee_id,
+    e.employee_name,
+    s.basic_salary,
+    s.bonus
+FROM employee e
+INNER JOIN salary s
+    ON e.employee_id = s.employee_id;
+
+Expected result:
+Employee	Basic salary	Bonus
+Sumit	50000	5000
+Rahul	30000	2000
+Amit	80000	10000
+Priya	60000	5000
+Sufiyan	35000	3000
+
+Query 3: Department-wise Salary
+Calculate total salary for each department, including bonus.
+SELECT
+    d.department_name,
+    SUM(s.basic_salary + s.bonus) AS total_salary
+FROM department d
+JOIN employee e
+    ON d.department_id = e.department_id
+JOIN salary s
+    ON e.employee_id = s.employee_id
+GROUP BY d.department_name;
+
+Expected result:
+Department	Total salary
+IT	145000
+HR	70000
+Finance	65000
+
+Query 4: Highest Paid Employee
+Find the employee receiving the highest total salary (basic salary + bonus).
+SELECT
+    e.employee_id,
+    e.employee_name,
+    s.basic_salary,
+    s.bonus,
+    (s.basic_salary + s.bonus) AS total_salary
+FROM employee e
+JOIN salary s
+    ON e.employee_id = s.employee_id
+ORDER BY total_salary DESC
+LIMIT 1;
+
+Expected result:
+Employee	Basic salary	Bonus	Total salary
+Amit	80000	10000	90000

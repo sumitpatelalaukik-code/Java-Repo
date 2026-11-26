@@ -2201,11 +2201,8 @@ Benefits:
 **Day20**
 **Java – : Multithreading**
 
-
 **1. Process vs Thread**
-
 Process: A process is an independent program that is currently executing. It has its own memory space and resources.
-
 Thread: A thread is a lightweight unit of execution within a process. Multiple threads can run within the same process and share its memory.
 
 Example: A browser is a process, while its tabs or background tasks may perform work using multiple threads.
@@ -2512,3 +2509,215 @@ for (int i = 1; i <= 5; i++) {
 pool.shutdown();
 
 Here, five tasks are submitted, but only three worker threads are available to execute them concurrently.
+
+
+**Day24**
+
+**1. JDBC Architecture**
+
+JDBC (Java Database Connectivity) is a Java API used to connect Java applications with databases such as MySQL, Oracle, and PostgreSQL.
+
+It allows Java programs to execute SQL queries and perform database operations like INSERT, SELECT, UPDATE, and DELETE.
+
+JDBC Architecture:
+Java Application
+
+JDBC API
+
+Connection, Statement, ResultSet
+
+JDBC Driver
+
+Database (MySQL)
+
+Working:
+1. Java application sends a database request using JDBC API.
+2. JDBC driver communicates with the database.
+3. Database executes the SQL query.
+4. Results are returned to the Java application.
+2. Driver
+A JDBC Driver is a software component that enables Java applications to communicate with a database.
+
+Types of JDBC Drivers:
+Type	Description
+Type 1	JDBC-ODBC Bridge Driver (obsolete)
+Type 2	Native API Driver
+Type 3	Network Protocol Driver
+Type 4	Thin Driver / Pure Java Driver
+
+Important: MySQL Connector/J is a Type 4 JDBC driver.
+
+Example:
+Class.forName("com.mysql.cj.jdbc.Driver");
+
+In modern JDBC, the driver is generally loaded automatically when its JAR is available.
+
+
+**3. Connection**
+
+Connection is an interface used to establish communication between a Java application and a database.
+
+It belongs to the java.sql package.
+
+Example:
+import java.sql.*;
+
+Connection con = DriverManager.getConnection(
+    "jdbc:mysql://localhost:3306/college",
+    "root",
+    "password"
+);
+
+Important methods:
+- createStatement() – Creates a Statement object.
+- prepareStatement() – Creates a PreparedStatement.
+- commit() – Saves transaction changes.
+- rollback() – Reverses uncommitted changes.
+- close() – Closes the connection.
+
+
+**4. Statement**
+
+Statement is an interface used to execute simple, static SQL queries.
+
+Example:
+Statement stmt = con.createStatement();
+
+String sql = "SELECT * FROM Students";
+
+ResultSet rs = stmt.executeQuery(sql);
+
+Important methods:
+Method	Purpose
+executeQuery()	Executes SELECT queries
+executeUpdate()	Executes INSERT, UPDATE, DELETE
+execute()	Executes general SQL statements
+
+Limitation: Statement does not automatically protect against SQL injection when user input is concatenated into SQL queries.
+
+
+**5. PreparedStatement**
+
+PreparedStatement is an interface used to execute parameterized SQL queries.
+It is a subinterface of Statement.
+
+Features:
+- Uses ? placeholders for parameters.
+- Helps prevent SQL injection when parameters are bound properly.
+- Can be reused with different parameter values.
+- Improves convenience and may improve performance for repeated queries.
+Example:
+String sql = "INSERT INTO Students VALUES (?, ?, ?)";
+
+PreparedStatement ps = con.prepareStatement(sql);
+
+ps.setInt(1, 101);
+ps.setString(2, "Sumit");
+ps.setInt(3, 21);
+
+ps.executeUpdate();
+
+Here, ? represents values that are supplied using setter methods.
+
+
+**6. ResultSet**
+
+ResultSet is an interface used to store and access the data returned by a SELECT query.
+
+Example:
+Statement stmt = con.createStatement();
+
+ResultSet rs = stmt.executeQuery(
+    "SELECT * FROM Students"
+);
+
+while (rs.next()) {
+    System.out.println(rs.getInt("id"));
+    System.out.println(rs.getString("name"));
+}
+
+Important methods:
+Method	Purpose
+next()	Moves cursor to the next row
+getInt()	Retrieves an integer
+getString()	Retrieves a string
+getDouble()	Retrieves a double
+getDate()	Retrieves a SQL date
+close()	Closes the ResultSet
+
+Important: Initially, the ResultSet cursor is positioned before the first row. Calling next() moves it to the first row.
+
+
+**7. Transactions**
+
+A Transaction is a group of database operations treated as one logical unit of work.
+
+A transaction follows the ACID properties.
+ACID Properties
+Property	Meaning
+Atomicity	All operations succeed or none are applied
+Consistency	Database remains valid before and after the transaction
+Isolation	Concurrent transactions do not interfere improperly
+Durability	Committed changes are permanent
+
+Important JDBC methods:
+- setAutoCommit(false) – Disables automatic commit.
+- commit() – Saves all transaction changes.
+- rollback() – Reverses uncommitted changes.
+Example:
+try {
+    con.setAutoCommit(false);
+
+    Statement stmt = con.createStatement();
+
+    stmt.executeUpdate(
+        "UPDATE Accounts SET balance = balance - 1000 WHERE id = 1"
+    );
+
+    stmt.executeUpdate(
+        "UPDATE Accounts SET balance = balance + 1000 WHERE id = 2"
+    );
+
+    con.commit();
+
+} catch (SQLException e) {
+    con.rollback();
+    e.printStackTrace();
+}
+
+Here, money is transferred between two accounts. If an operation fails, rollback() reverses the uncommitted changes.
+
+Complete JDBC Flow
+1. Import JDBC packages
+   
+   import java.sql.*;
+2. Establish Connection
+   
+   DriverManager.getConnection()
+3. Create SQL statement
+   
+   createStatement() or prepareStatement()
+4. Execute SQL query
+   
+   executeQuery() or executeUpdate()
+5. Process results
+   
+   Use ResultSet for SELECT queries.
+6. Close resources
+   
+   Close ResultSet, Statement, and Connection.
+
+Statement vs PreparedStatement
+Statement	PreparedStatement
+Used for static SQL queries	Used for parameterized queries
+SQL values are commonly written directly	Uses ? placeholders
+User input concatenation can cause SQL injection	Parameter binding helps prevent SQL injection
+Less convenient for repeated parameterized queries	Can reuse the same SQL structure
+Does not predefine parameter types	Supports typed setter methods
+
+Quick Revision
+Topic	Meaning
+JDBC	Connects Java applications with databases
+Driver	Enables database communication
+Connection	Establishes database connection
+Statement	Executes SQL queries
