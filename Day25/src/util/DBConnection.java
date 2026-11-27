@@ -1,22 +1,15 @@
+package util;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.PreparedStatement;
 
-class JDBC {
-    public static void main(String[] args) {
-        String url = "jdbc:mysql://localhost:3306/employee_db";
-        String username = "root";
-        String password = "password";
+public class DBConnection {
+    private static final String URL = "jdbc:mysql://localhost:3306/employee_db";
+    private static final String USER = "root";
+    private static final String PASSWORD = "password";
 
-        try {
-            Connection con = DriverManager.getConnection(url, username, password);
-            System.out.println("Connected to the database!");
-
-            con.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public static Connection getConnection() throws SQLException {
+        return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 }

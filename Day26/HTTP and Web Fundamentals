@@ -1,0 +1,365 @@
+Web Development – HTTP and Client-Server Architecture
+
+**1. Client-Server Architecture**
+Client-Server Architecture is a model in which a client sends requests to a server, and the server processes those requests and sends back responses.
+
+Client: Requests services or resources (browser, mobile app).
+
+Server: Processes requests and provides data or services.
+
+Database: Stores application data.
+
+Example: When you open an e-commerce website, your browser requests product information from the server, and the server retrieves it from the database.
+
+Client (Browser)
+
+Sends request
+
+HTTP Request
+
+Application Server
+
+Processes request
+
+Database query
+
+Database
+
+Stores and retrieves data
+
+HTTP Response
+
+Server sends the response back to the client.
+
+
+**2. HTTP**
+
+HTTP (HyperText Transfer Protocol) is a communication protocol used to transfer data between clients and servers over a network.
+
+Features:
+
+Follows a request-response model.
+
+Used for communication between browsers and web servers.
+
+Stateless protocol (each request is independent by default).
+
+Does not provide encryption by itself.
+
+Example:
+http://example.com
+
+
+**3. HTTPS**
+
+HTTPS (HyperText Transfer Protocol Secure) is the secure version of HTTP.
+
+It uses TLS (Transport Layer Security) to encrypt communication between the client and server.
+
+Features:
+
+Encrypts data during transmission.
+
+Helps protect sensitive information.
+
+Provides server authentication using digital certificates.
+
+Helps detect data tampering.
+
+Example:
+https://example.com
+HTTP vs HTTPS
+HTTP
+
+HTTPS
+
+Not encrypted by itself
+
+Encrypted using TLS
+
+Less secure
+
+More secure
+
+Usually port 80
+
+Usually port 443
+
+No TLS certificate required
+
+Uses a TLS certificate
+
+
+**4. Request**
+
+An HTTP Request is a message sent by a client to a server to access a resource or perform an operation.
+Main components:
+
+Request method (GET, POST, etc.).
+
+URL or endpoint.
+
+Headers.
+
+Optional request body.
+
+Example:
+POST /api/users HTTP/1.1
+Host: example.com
+Content-Type: application/json
+
+{
+  "name": "Sumit",
+  "age": 21
+}
+Here, the client sends user information to the server.
+
+
+**5. Response**
+
+An HTTP Response is a message sent by the server back to the client after processing a request.
+
+Main components:
+
+Status code.
+
+Response headers.
+
+Response body.
+
+Example:
+
+HTTP/1.1 201 Created
+Content-Type: application/json
+
+{
+  "id": 101,
+  "name": "Sumit"
+}
+Here, the server confirms that a new user has been created.
+
+
+**6. HTTP Methods**
+
+HTTP methods define the type of operation a client wants to perform on a server resource.
+
+Method
+
+Purpose
+
+Example
+
+GET
+
+Retrieve data
+
+Get all products
+
+POST
+
+Create new data
+
+Add a product
+
+PUT
+
+Replace an existing resource
+
+Update entire product
+
+PATCH
+
+Partially update data
+
+Update product price
+
+DELETE
+
+Delete data
+
+Delete a product
+
+HEAD
+
+Retrieve headers only
+
+Check resource metadata
+
+OPTIONS
+
+Find supported methods
+
+Check API methods
+
+Example in REST API:
+GET     /api/products
+GET     /api/products/1
+POST    /api/products
+PUT     /api/products/1
+PATCH   /api/products/1
+DELETE  /api/products/1
+
+
+**7. HTTP Status Codes**
+
+HTTP status codes indicate the result of a client's request.
+There are five main categories:
+
+Category
+
+Meaning
+
+1xx
+
+Informational
+
+2xx
+
+Success
+
+3xx
+
+Redirection
+
+4xx
+
+Client Error
+
+5xx
+
+Server Error
+
+Important Status Codes:
+
+Code
+
+Meaning
+
+200
+
+OK
+
+201
+
+Created
+
+204
+
+No Content
+
+301
+
+Moved Permanently
+
+302
+
+Found (temporary redirect)
+
+400
+
+Bad Request
+
+401
+
+Unauthorized (authentication required or failed)
+
+403
+
+Forbidden
+
+404
+
+Not Found
+
+405
+
+Method Not Allowed
+
+409
+
+Conflict
+
+500
+
+Internal Server Error
+
+502
+
+Bad Gateway
+
+503
+
+Service Unavailable
+
+
+**8. Headers**
+
+HTTP Headers are key-value pairs used to provide additional information about requests and responses.
+
+They describe details such as content type, authentication, caching, and accepted formats.
+
+Common Headers:
+
+Header
+
+Purpose
+
+Content-Type
+
+Type of data being sent
+
+Accept
+
+Types of responses the client accepts
+
+Authorization
+
+Sends authentication credentials
+
+User-Agent
+
+Identifies the client software
+
+Host
+
+Identifies the target host
+
+Cache-Control
+
+Defines caching rules
+
+Content-Length
+
+Size of the message body
+
+Example:
+Content-Type: application/json
+Authorization: Bearer your_token
+Accept: application/json
+
+
+**9. JSON**
+
+JSON (JavaScript Object Notation) is a lightweight data-interchange format used to exchange data between clients and servers.
+
+It is language-independent and commonly used in REST APIs.
+
+Features:
+
+Easy to read and understand.
+
+Lightweight data format.
+
+Supports objects, arrays, strings, numbers, booleans, and null.
+
+Commonly used in frontend-backend communication.
+
+Example:
+
+{
+  "id": 101,
+  "name": "Sumit",
+  "age": 21,
+  "skills": ["Java", "SQL", "React"],
+  "isActive": true
+}
